@@ -1,39 +1,32 @@
-import unlekker.mb2.geo.*;
-import unlekker.mb2.util.*;
-import unlekker.data.*;
-import unlekker.mb2.externals.*;
-import ec.util.*;
-
 import controlP5.*;
-
-//import unlekker.util.*;
-//import unlekker.modelbuilder.*;
-//import unlekker.modelbuilder.filter.*;
-//import ec.util.*;
+import fullscreen.*;
 
 
+
+import unlekker.util.*;
+import unlekker.modelbuilder.*;
+import unlekker.modelbuilder.filter.*;
+import ec.util.*;
 
 import processing.opengl.*;
 
 UNav3D nav; // camera tool
 Obj obj;
 PApplet papplet;
+FullScreen fs; 
 
 void setup() {
-  size (600, 600, OPENGL);
-  
-  UMB.setPApplet(this);
-  nav = new UNav3D();
-   translate(width/2,height/2);
-  
-  
-  
-//  papplet=this;
-//  nav=new UNav3D(this);
-//  nav.setTranslation(width/2,height/2,0);
+  size (1366, 768, OPENGL);
+  papplet=this;
+  nav=new UNav3D(this);
+  nav.setTranslation(width/2,height/2,0);
   initGUI();
   
   obj=new Obj();
+   fs = new FullScreen(this); 
+  
+  // enter fullscreen mode
+  fs.enter(); 
 }
 
 void draw() {
@@ -51,7 +44,7 @@ void draw() {
   obj.draw();
   popMatrix();
   
-  //gui.draw();
+  gui.draw();
   
   
 }

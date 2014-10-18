@@ -1,6 +1,6 @@
 class Obj {
   UVertexList vl[];
-  UGeo geo;
+  UGeometry geo;
 
   
   Obj() {
@@ -10,7 +10,7 @@ class Obj {
   }
   
   void build(){
-    vl=UVertexList.get(rows);
+    vl=UVertexList.getVertexLists(rows);
     for(int i=0; i<cols; i++) {
       vl[0].add(new UVec3(100,0,0).rotateY(map(i,0,cols,0,TWO_PI)));
     }
