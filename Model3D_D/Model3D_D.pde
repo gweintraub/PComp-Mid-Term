@@ -13,8 +13,12 @@ Obj obj;
 PApplet papplet;
 FullScreen fs; 
 
+int rows=9, cols=15;
+float rand;
+float a=1, b=1, c=1, d=1;
+float twist=0;
+
 Serial myPort;  // Create object from Serial class
-String val;     // Data received from the serial port
 
 int triangleColor;
 boolean decrement;
@@ -24,8 +28,7 @@ boolean decrement;
 void setup() {
   triangleColor = 1;
   decrement = true;
-  //  String portName = Serial.list()[1]; //change the 0 to a 1 or 2 etc. to match your port
-  //  myPort = new Serial(this, portName, 9600); 
+  myPort = new Serial(this, Serial.list()[4], 38400); 
   size (1366, 768, OPENGL);
   papplet=this;
   nav=new UNav3D(this);
@@ -42,6 +45,21 @@ void setup() {
 
 void draw() {
   background(0);
+  gui.draw();
+  
+  //Byte reading
+   byte[] inBuffer = new byte[5];
+    byte[] inBuffer = new byte[7];
+  while (myPort.available() > 0) {
+    inBuffer = myPort.readBytes();
+    myPort.readBytes(inBuffer);
+    if (inBuffer != null) {
+      String myString = new String(inBuffer);
+      println(myString);
+    }
+    
+   //End byte stuff 
+   
 
   translate(width/2, height/2);
   lights();
@@ -121,7 +139,7 @@ void draw() {
   
   
 
-  // gui.draw();
+ 
 }
 
 

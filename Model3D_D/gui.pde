@@ -1,8 +1,5 @@
 USimpleGUI gui;
-int rows=9, cols=15;
-float rand;
-float a=1, b=1, c=1, d=1;
-float twist=0;
+
 boolean doRebuild;
 
 
