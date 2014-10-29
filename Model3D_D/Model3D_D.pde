@@ -28,7 +28,8 @@ boolean decrement;
 void setup() {
   triangleColor = 1;
   decrement = true;
-  myPort = new Serial(this, Serial.list()[4], 38400); 
+  String portName;
+  //myPort = new Serial(this, portname, 38400); 
   size (1366, 768, OPENGL);
   papplet=this;
   nav=new UNav3D(this);
@@ -46,20 +47,7 @@ void setup() {
 void draw() {
   background(0);
   gui.draw();
-  
-  //Byte reading
-   byte[] inBuffer = new byte[5];
-    byte[] inBuffer = new byte[7];
-  while (myPort.available() > 0) {
-    inBuffer = myPort.readBytes();
-    myPort.readBytes(inBuffer);
-    if (inBuffer != null) {
-      String myString = new String(inBuffer);
-      println(myString);
-    }
-    
-   //End byte stuff 
-   
+
 
   translate(width/2, height/2);
   lights();
@@ -136,26 +124,29 @@ void draw() {
   obj.draw();
   popMatrix();
   upAndDown();
-  
-  
-
- 
 }
 
 
-void upAndDown(){
-    if(decrement){
-      triangleColor--;
-      if(triangleColor<0){
-        decrement = false;
-        triangleColor = 0;
-      }
-    } else {
-      triangleColor++;
-      if(triangleColor>17){
-        decrement = true;
-        triangleColor = 17;
-      }
+void serialEvent(Serial myPort) {
+  int inByte = myPort.read();
+}
+
+
+
+void upAndDown() {
+  if (decrement) {
+    triangleColor--;
+    if (triangleColor<0) {
+      decrement = false;
+      triangleColor = 0;
+    }
+  } 
+  else {
+    triangleColor++;
+    if (triangleColor>17) {
+      decrement = true;
+      triangleColor = 17;
     }
   }
+}
 
