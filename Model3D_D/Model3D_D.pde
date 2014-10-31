@@ -28,8 +28,7 @@ boolean decrement;
 void setup() {
   triangleColor = 1;
   decrement = true;
-  String portName;
-  //myPort = new Serial(this, portname, 38400); 
+  
   size (1366, 768, OPENGL);
   papplet=this;
   nav=new UNav3D(this);
@@ -42,6 +41,10 @@ void setup() {
 
   // enter fullscreen mode
   fs.enter();
+  
+  String portName = Serial.list()[4];
+  myPort = new Serial(this, portName, 38400); 
+  myPort.bufferUntil('\n');
 }
 
 void draw() {
@@ -128,7 +131,16 @@ void draw() {
 
 
 void serialEvent(Serial myPort) {
-  int inByte = myPort.read();
+  String inByte = myPort.readString();
+  
+  String[] values = split(inByte, ',');
+  
+  for(int i=0; i<values.length; i++){
+    print(values[i] + ' ');
+  }
+
+  myPort.write('x');
+  
 }
 
 

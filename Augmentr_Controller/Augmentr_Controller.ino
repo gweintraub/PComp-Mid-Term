@@ -1,13 +1,13 @@
 /*
 Augmentr MIDI Controller
-by David Cihelna & Gabe Weintraub
-ITP Fall 2014 - PComp Midterm
-
-Uses Hairless Serial - MIDI and Massive to manipulate a sounds (like an autoharp) and Processing sketch.
-
-Suggested Massive Patches: Apex Jeff Strings, Hot Wired, Devilfish Cloned
-
-*/
+ by David Cihelna & Gabe Weintraub
+ ITP Fall 2014 - PComp Midterm
+ 
+ Uses Hairless Serial - MIDI and Massive to manipulate a sounds (like an autoharp) and Processing sketch.
+ 
+ Suggested Massive Patches: Apex Jeff Strings, Hot Wired, Devilfish Cloned
+ 
+ */
 
 //the switches
 const int switchPin13 = 13;  // The switch is on Arduino pin 13
@@ -43,6 +43,7 @@ void setup() {
   pinMode(finger5, INPUT);
 
   Serial.begin(38400);
+  Serial.println("0,0,0");
 }
 
 
@@ -131,19 +132,37 @@ void playing(){
 
 //this sends the serial data out from the data chosen in playing
 void noteOn(byte cmd, byte data1, byte  data2) {
-  Serial.write(cmd);
+  //  Serial.write(cmd);
+  //
+  //  Serial.write(data1);
+  //
+  //  Serial.write(data2);
 
-  Serial.write(data1);
-
-  Serial.write(data2);
+  if (Serial.available() > 0) {
+    Serial.print(String(cmd));
+    Serial.print(",");
+    Serial.print(String(data1));
+    Serial.print(",");
+    Serial.print(String(data2));
+    Serial.println("");
+  }
 }
 
 void noteOFF(byte bcmd, byte bdata1, byte  bdata2) {
-  Serial.write(bcmd);
+  //  Serial.write(bcmd);
+  //
+  //  Serial.write(bdata1);
+  //
+  //  Serial.write(bdata2);
 
-  Serial.write(bdata1);
-
-  Serial.write(bdata2);
+if (Serial.available() > 0) {
+  Serial.print(String(bcmd));
+  Serial.print(",");
+  Serial.print(String(bdata1));
+  Serial.print(",");
+  Serial.print(String(bdata2));
+  Serial.println("");
+}
 }
 
 
@@ -165,12 +184,27 @@ void fingers(){
 
 //sends the controller data out
 void conCon(byte ccmd, byte cdata1, byte  cdata2) {
-  Serial.write(ccmd);
+  //  Serial.write(ccmd);
+  //
+  //  Serial.write(cdata1);
+  //
+  //  Serial.write(cdata2);
 
-  Serial.write(cdata1);
+  // String out = (String(ccmd) + ', ' + String(cdata1) + ', ' + String(cdata2));
 
-  Serial.write(cdata2);
+
+  //Serial.println(out);
+if (Serial.available() > 0) {
+  Serial.print(String(ccmd));
+  Serial.print(",");
+  Serial.print(String(cdata1));
+  Serial.print(",");
+  Serial.print(String(cdata2));
+  Serial.println("");
+}
+
 
   delay(10);
 
 }
+
